@@ -65,7 +65,7 @@ const Header = () => {
                 <Link href="#">Sale</Link>
               </nav>
             </div>
-            <Link href="#">Link</Link>
+            <Link href="#">DEAL</Link>
             <div className="flex flex-1 justify-end items-center gap-2 sm:gap-4">
               <button className="text-gray-700 hover:text-gray-900 hidden sm:block">
                 <Search />
