@@ -96,6 +96,9 @@ const SignUp = ({ action }: SignUpProps) => {
             "CREATE ACCOUNT"
           )}
         </button>
+        {state?.message && state.message.length > 0 && (
+          <p className="text-center text-sm text-red-600">{state.message}</p>
+        )}
       </div>
     </Form>
   );

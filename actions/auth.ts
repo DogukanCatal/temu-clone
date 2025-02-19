@@ -64,7 +64,13 @@ export async function validateSessionToken(
       },
     });
   }
-  return { session, user };
+
+  const safeUser = {
+    ...user,
+    passwordHash: undefined,
+  };
+
+  return { session, user: safeUser };
 }
 
 export async function invalidateSession(sessionId: string): Promise<void> {
@@ -80,7 +86,7 @@ export async function invalidateAllSessions(userId: number): Promise<void> {
 }
 
 export type SessionValidationResult =
-  | { session: Session; user: User }
+  | { session: Session; user: Omit<User, "passwordHash"> }
   | { session: null; user: null };
 
 //   Cookies
@@ -109,6 +115,7 @@ export async function deleteSessionTokenCookie(): Promise<void> {
   });
 }
 
+// we are using this in different places but since it is 'cache' it will run once on the server.
 export const getCurrentSession = cache(
   async (): Promise<SessionValidationResult> => {
     const cookieStore = await cookies();
