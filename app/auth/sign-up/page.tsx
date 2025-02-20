@@ -16,6 +16,7 @@ const SignUpPage = async () => {
     return redirect("/");
   }
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const action = async (prevState: any, formData: FormData) => {
     "use server";
     const parsed = SignUpSchema.safeParse(Object.fromEntries(formData));

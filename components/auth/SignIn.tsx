@@ -6,6 +6,7 @@ const initialState = {
   message: "",
 };
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 type SignInProps = {
   action: (
     prevState: any,

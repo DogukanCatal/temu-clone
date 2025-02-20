@@ -4,7 +4,7 @@ import ProductGrid from "@/components/product/ProductGrid";
 import { getAllProducts } from "@/sanity/lib/client";
 
 const Home = async () => {
-  const { user } = await getCurrentSession();
+  // const { user } = await getCurrentSession();
 
   const products = await getAllProducts();
 
