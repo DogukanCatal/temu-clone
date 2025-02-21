@@ -2,7 +2,7 @@
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import Hamburger from "hamburger-react";
-import { Search, ShoppingCart } from "lucide-react";
+import { ShoppingCart } from "lucide-react";
 import { User } from "@prisma/client";
 import { logoutUser } from "@/actions/auth";
 import { useRouter } from "next/navigation";
