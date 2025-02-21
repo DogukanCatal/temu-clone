@@ -6,6 +6,9 @@ import { Search, ShoppingCart } from "lucide-react";
 import { User } from "@prisma/client";
 import { logoutUser } from "@/actions/auth";
 import { useRouter } from "next/navigation";
+import HeaderSearchBar from "./HeaderSearchBar";
+import { useCartStore } from "@/stores/cart-store";
+import { useShallow } from "zustand/shallow";
 const AnnouncementBar = () => {
   return (
     <div className="w-full bg-black py-2">
@@ -25,9 +28,20 @@ type HeaderProps = {
 
 const Header = ({ user, categorySelector }: HeaderProps) => {
   const router = useRouter();
+
   const [isOpen, setIsOpen] = useState<boolean>(true);
+
   const [prevScrollY, setPrevScrollY] = useState<number>(0);
+
   const [isHamOpen, setIsHamOpen] = useState<boolean>(false);
+
+  const { open, getTotalItems } = useCartStore(
+    useShallow((state) => ({
+      open: state.open,
+      getTotalItems: state.getTotalItems,
+    }))
+  );
+
   useEffect(() => {
     const handleScroll = () => {
       const currentScrollY = window.scrollY;
@@ -83,10 +97,7 @@ const Header = ({ user, categorySelector }: HeaderProps) => {
             </Link>
 
             <div className="flex flex-1 justify-end items-center gap-2 sm:gap-4">
-              <button className="text-gray-700 hover:text-gray-900 hidden sm:block">
-                <Search size={20} />
-              </button>
-
+              <HeaderSearchBar />
               {user ? (
                 <div className="flex items-center gap-2 sm:gap-4">
                   <span className="text-xs text-gray-700 hidden md:block">
@@ -121,10 +132,13 @@ const Header = ({ user, categorySelector }: HeaderProps) => {
                 </React.Fragment>
               )}
 
-              <button className="text-gray-700 hover:text-gray-900 relative">
+              <button
+                onClick={() => open()}
+                className="text-gray-700 hover:text-gray-900 relative"
+              >
                 <ShoppingCart />
                 <span className="absolute -top-1 -right-1 bg-black text-white tex-[10px] sm:text-xs size-3.5 sm:w-4 sm:h-4 rounded-full flex items-center justify-center">
-                  0
+                  {getTotalItems()}
                 </span>
               </button>
             </div>
