@@ -34,6 +34,7 @@ const Cart = () => {
     }))
   );
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(() => {
     const initCart = async () => {
       await useCartStore.persist.rehydrate();
